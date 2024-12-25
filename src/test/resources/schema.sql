@@ -16,7 +16,6 @@ create table lecture
     lecture_date  varchar(255),
     lecture_time  varchar(255),
     lecture_title varchar(255),
-    status        varchar(255),
     teacher_id    bigint,
     primary key (lecture_id)
 );

@@ -42,9 +42,6 @@ public class Lecture {
 	@Column
 	private Integer grade;
 
-	@Column
-	private String status;
-
 	@Column(name = "enroll_count")
 	private Integer enrollCount;
 
