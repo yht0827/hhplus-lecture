@@ -25,7 +25,7 @@ import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseResponse;
 @DisplayName("수강신청 E2E 테스트")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "classpath:data.sql")
-public class EnrollCourseControllerTest {
+public class EnrollCourseEtoETest {
 
 	@LocalServerPort
 	private int port;
@@ -98,5 +98,22 @@ public class EnrollCourseControllerTest {
 		assertThat(response2.grade()).isEqualTo(3);
 	}
 
+	@Test
+	@DisplayName("특강 신청 E2E 테스트")
+	public void enrollCourseEtoETest() {
+		String url = UriComponentsBuilder.fromUriString("http://localhost:" + port + "/enrollment").toUriString();
 
+		EnrollCourseRequest enrollCourseRequest = EnrollCourseRequest.builder().studentId(1L).lectureId(2L).build();
+
+		ResponseEntity<EnrollCourseResponse> response = restTemplate.postForEntity(url, enrollCourseRequest,
+			EnrollCourseResponse.class);
+
+		// 상태 코드 확인
+		assertThat(response.getStatusCode().value()).isEqualTo(HttpStatus.CREATED.value());
+
+		// 응답 데이터 확인
+		EnrollCourseResponse enrollCourseResponse = response.getBody();
+		assertThat(enrollCourseResponse).isNotNull();
+		assertThat(enrollCourseResponse.enrollCourseId()).isEqualTo(3L);
+	}
 }

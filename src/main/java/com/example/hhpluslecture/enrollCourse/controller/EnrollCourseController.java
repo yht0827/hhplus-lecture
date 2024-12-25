@@ -31,7 +31,6 @@ public class EnrollCourseController {
 	@GetMapping("/completeCourses/{studentId}")
 	public ResponseEntity<List<EnrollCompleteResponse>> enrollComplete(@PathVariable Long studentId) {
 		List<EnrollCompleteResponse> responseList = enrollCourseService.getEnrollCompleteList(studentId);
-
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
 
@@ -40,19 +39,13 @@ public class EnrollCourseController {
 	public ResponseEntity<List<EnrollAvailableResponse>> enrollAvailable(
 		EnrollAvailableRequest enrollAvailableRequest) {
 		List<EnrollAvailableResponse> responseList = enrollCourseService.getEnrollAvailableList(enrollAvailableRequest);
-
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
 
 	// 특강 신청
 	@PostMapping
 	public ResponseEntity<EnrollCourseResponse> enrollCourse(@RequestBody EnrollCourseRequest enrollCourseRequest) {
-		EnrollCourseResponse enrollCourseResponse = saveCourse(enrollCourseRequest);
-
+		EnrollCourseResponse enrollCourseResponse = enrollCourseService.saveEnrollCourse(enrollCourseRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(enrollCourseResponse);
-	}
-
-	private EnrollCourseResponse saveCourse(EnrollCourseRequest enrollCourseRequest) {
-		return EnrollCourseResponse.builder().enrollCourseId(1L).build();
 	}
 }

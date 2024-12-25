@@ -54,4 +54,8 @@ public class Lecture {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
+
+	public void updateEnrollCount() {
+		this.enrollCount = this.enrollCount + 1;
+	}
 }

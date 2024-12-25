@@ -13,4 +13,5 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
 		"ec.student.studentId = :studentId WHERE l.lectureDate = :lectureDate AND ec.enrollCourseId IS NULL")
 	List<Lecture> findLecturesNotEnrolledByStudentId(final Long studentId, final String lectureDate);
 
+
 }

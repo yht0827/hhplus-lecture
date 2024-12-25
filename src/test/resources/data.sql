@@ -44,7 +44,7 @@ VALUES (4, 0, 3, '00004', '20241228', '22:00-23:00',
 
 -- 수강 신청 Insert
 INSERT INTO enroll_course (enroll_course_id, register_date, lecture_id, student_id)
-VALUES (1, NOW(), 1, 1);
+VALUES (1, NOW(6), 1, 1);
 
 INSERT INTO enroll_course (enroll_course_id, register_date, lecture_id, student_id)
-VALUES (2, NOW(), 3, 1);
+VALUES (2, NOW(6), 3, 1);

@@ -31,21 +31,30 @@ public class EnrollCourse {
 	private Long enrollCourseId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lecture_id")
-	private Lecture lecture;
+	@JoinColumn(name = "student_id", insertable = false, updatable = false)
+	private Student student;
+
+	@Column(name = "student_id")
+	private Long studentId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "student_id")
-	private Student student;
+	@JoinColumn(name = "lecture_id", insertable = false, updatable = false)
+	private Lecture lecture;
+
+	@Column(name = "lecture_id")
+	private Long lectureId;
 
 	@Column(name = "register_date")
 	private LocalDateTime registerDate;
 
 	@Builder
-	public EnrollCourse(Long enrollCourseId, Lecture lecture, Student student) {
+	public EnrollCourse(Long enrollCourseId, Long lectureId, Long studentId, Lecture lecture, Student student,
+		LocalDateTime registerDate) {
 		this.enrollCourseId = enrollCourseId;
+		this.lectureId = lectureId;
+		this.studentId = studentId;
 		this.lecture = lecture;
 		this.student = student;
-		this.registerDate = LocalDateTime.now();
+		this.registerDate = registerDate;
 	}
 }
