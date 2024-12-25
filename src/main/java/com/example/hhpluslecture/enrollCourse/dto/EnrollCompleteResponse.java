@@ -5,12 +5,13 @@ import com.example.hhpluslecture.enrollCourse.entity.EnrollCourse;
 import lombok.Builder;
 
 @Builder
-public record EnrollCompleteResponse(Long lectureId, String lectureTitle,
+public record EnrollCompleteResponse(Long enrollCourseId, Long lectureId, String lectureTitle,
 									 String lectureCode, String lectureTime, String lectureDate, String teacherName,
 									 Integer grade, Integer enrollCount, Long teacherId) {
 
 	public static EnrollCompleteResponse of(EnrollCourse enrollCourse) {
 		return EnrollCompleteResponse.builder()
+			.enrollCourseId(enrollCourse.getEnrollCourseId())
 			.lectureId(enrollCourse.getLecture().getLectureId())
 			.lectureTitle(enrollCourse.getLecture().getLectureTitle())
 			.lectureCode(enrollCourse.getLecture().getLectureCode())

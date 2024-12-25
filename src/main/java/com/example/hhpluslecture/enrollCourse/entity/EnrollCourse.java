@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,4 +40,12 @@ public class EnrollCourse {
 
 	@Column(name = "register_date")
 	private LocalDateTime registerDate;
+
+	@Builder
+	public EnrollCourse(Long enrollCourseId, Lecture lecture, Student student) {
+		this.enrollCourseId = enrollCourseId;
+		this.lecture = lecture;
+		this.student = student;
+		this.registerDate = LocalDateTime.now();
+	}
 }

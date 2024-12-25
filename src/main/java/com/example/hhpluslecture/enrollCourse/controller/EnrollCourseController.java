@@ -1,6 +1,5 @@
 package com.example.hhpluslecture.enrollCourse.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -31,19 +30,16 @@ public class EnrollCourseController {
 	// 특강 신청 완료 목록 조회
 	@GetMapping("/completeCourses/{studentId}")
 	public ResponseEntity<List<EnrollCompleteResponse>> enrollComplete(@PathVariable Long studentId) {
-
 		List<EnrollCompleteResponse> responseList = enrollCourseService.getEnrollCompleteList(studentId);
 
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
 
-	// 특강 신청 가능 목록 조회 (날짜별로 조회 가능 lectureDate=20241228 이런식으로 조회 처리)
+	// 특강 신청 가능 목록 조회
 	@GetMapping("/availableCourses/{studentId}")
 	public ResponseEntity<List<EnrollAvailableResponse>> enrollAvailable(
 		EnrollAvailableRequest enrollAvailableRequest) {
-
-		// 조회 로직
-		List<EnrollAvailableResponse> responseList = getEnrollAvaliableList(enrollAvailableRequest);
+		List<EnrollAvailableResponse> responseList = enrollCourseService.getEnrollAvailableList(enrollAvailableRequest);
 
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
@@ -59,40 +55,4 @@ public class EnrollCourseController {
 	private EnrollCourseResponse saveCourse(EnrollCourseRequest enrollCourseRequest) {
 		return EnrollCourseResponse.builder().enrollCourseId(1L).build();
 	}
-
-	private List<EnrollAvailableResponse> getEnrollAvaliableList(final EnrollAvailableRequest enrollAvailableRequest) {
-
-		List<EnrollAvailableResponse> responseList = new ArrayList<>();
-
-		EnrollAvailableResponse enrollAvailableResponse1 = EnrollAvailableResponse.builder()
-			.lectureId(1L)
-			.lectureTitle("디자인 패턴")
-			.lectureCode("00003")
-			.lectureTime("22:00 - 23:00")
-			.teacherId(2L)
-			.teacherName("허재")
-			.grade(2)
-			.enrollCount(15)
-			.status("Y")
-			.build();
-
-		responseList.add(enrollAvailableResponse1);
-
-		EnrollAvailableResponse enrollAvailableResponse2 = EnrollAvailableResponse.builder()
-			.lectureId(2L)
-			.lectureTitle("JPA")
-			.lectureCode("00002")
-			.lectureTime("11:00 - 12:00")
-			.teacherId(1L)
-			.teacherName("김영한")
-			.grade(3)
-			.enrollCount(20)
-			.status("Y")
-			.build();
-
-		responseList.add(enrollAvailableResponse2);
-
-		return responseList;
-	}
-
 }

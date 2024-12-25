@@ -1,7 +1,7 @@
 create table enroll_course
 (
     enroll_course_id bigint not null auto_increment,
-    register_date    datetime(6),
+    register_date    datetime(6) default now(),
     lecture_id       bigint,
     student_id       bigint,
     primary key (enroll_course_id)

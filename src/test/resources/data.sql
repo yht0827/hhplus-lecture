@@ -24,27 +24,27 @@ VALUES (4, '지젤');
 -- 강의 Insert
 INSERT INTO lecture (lecture_id, enroll_count, grade, lecture_code, lecture_date, lecture_time, lecture_title,
                      teacher_id)
-VALUES (1, 1, 3, '00001', '20241226', '09:00 - 10:00',
+VALUES (1, 1, 3, '00001', '20241226', '09:00-10:00',
         '스프링 부트', 1);
 
 INSERT INTO lecture (lecture_id, enroll_count, grade, lecture_code, lecture_date, lecture_time, lecture_title,
                      teacher_id)
-VALUES (2, 0, 2, '00002', '20241228', '10:00 - 11:00',
+VALUES (2, 0, 2, '00002', '20241228', '10:00-11:00',
         'JPA', 2);
 
 INSERT INTO lecture (lecture_id, enroll_count, grade, lecture_code, lecture_date, lecture_time, lecture_title,
                      teacher_id)
-VALUES (3, 1, 3, '00003', '20241228', '11:00 - 12:00',
+VALUES (3, 1, 3, '00003', '20241228', '11:00-12:00',
         '디자인 패턴', 3);
 
 INSERT INTO lecture (lecture_id, enroll_count, grade, lecture_code, lecture_date, lecture_time, lecture_title,
                      teacher_id)
-VALUES (4, 0, 3, '00004', '20241228', '22:00 - 23:00',
-        '클린 코드', 4);
+VALUES (4, 0, 3, '00004', '20241228', '22:00-23:00',
+        '클린 코드', 3);
 
 -- 수강 신청 Insert
-INSERT INTO enroll_course (enroll_course_id, lecture_id, student_id)
-VALUES (1, 1, 1);
+INSERT INTO enroll_course (enroll_course_id, register_date, lecture_id, student_id)
+VALUES (1, NOW(), 1, 1);
 
-INSERT INTO enroll_course (enroll_course_id, lecture_id, student_id)
-VALUES (2, 3, 1);
+INSERT INTO enroll_course (enroll_course_id, register_date, lecture_id, student_id)
+VALUES (2, NOW(), 3, 1);

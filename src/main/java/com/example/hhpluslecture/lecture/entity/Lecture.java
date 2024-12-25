@@ -1,5 +1,8 @@
 package com.example.hhpluslecture.lecture.entity;
 
+import java.util.List;
+
+import com.example.hhpluslecture.enrollCourse.entity.EnrollCourse;
 import com.example.hhpluslecture.teacher.entity.Teacher;
 
 import jakarta.persistence.Column;
@@ -44,6 +47,9 @@ public class Lecture {
 
 	@Column(name = "enroll_count")
 	private Integer enrollCount;
+
+	@OneToMany(mappedBy = "lecture")
+	private List<EnrollCourse> enrollCourses;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")

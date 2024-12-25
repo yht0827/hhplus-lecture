@@ -9,6 +9,7 @@ import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableRequest;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableResponse;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCompleteResponse;
 import com.example.hhpluslecture.enrollCourse.repository.EnrollCourseRepository;
+import com.example.hhpluslecture.lecture.repository.LectureRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,16 +18,19 @@ import lombok.RequiredArgsConstructor;
 public class EnrollCourseService {
 
 	private final EnrollCourseRepository enrollCourseRepository;
+	private final LectureRepository lectureRepository;
 
 	@Transactional(readOnly = true)
 	public List<EnrollCompleteResponse> getEnrollCompleteList(final Long studentId) {
-		return enrollCourseRepository.findByStudent_StudentId(studentId).stream()
+		return enrollCourseRepository.findByStudentId(studentId).stream()
 			.map(EnrollCompleteResponse::of).toList();
 	}
 
 	@Transactional(readOnly = true)
 	public List<EnrollAvailableResponse> getEnrollAvailableList(final EnrollAvailableRequest enrollAvailableRequest) {
-		return null;
+		return lectureRepository.findLecturesNotEnrolledByStudentId(
+				enrollAvailableRequest.studentId(), enrollAvailableRequest.date())
+			.stream().map(EnrollAvailableResponse::of).toList();
 	}
 
 }
