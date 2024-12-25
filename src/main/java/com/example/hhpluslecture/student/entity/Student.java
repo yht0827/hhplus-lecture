@@ -1,0 +1,35 @@
+package com.example.hhpluslecture.student.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "student")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Student {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "student_id")
+	private Long studentId;
+
+	@Column(name = "student_age")
+	private Long studentAge;
+
+	@Column
+	private String address;
+
+	@Column(name = "student_gender")
+	private String studentGender;
+
+	@Column(name = "student_phone")
+	private String studentPhone;
+}

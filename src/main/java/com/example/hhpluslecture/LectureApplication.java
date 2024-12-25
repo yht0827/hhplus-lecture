@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HhplusLectureApplication {
+public class LectureApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HhplusLectureApplication.class, args);
+		SpringApplication.run(LectureApplication.class, args);
 	}
 
 }
