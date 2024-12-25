@@ -1,0 +1,68 @@
+package com.example.hhpluslecture;
+
+import static org.assertj.core.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableResponse;
+import com.example.hhpluslecture.enrollCourse.dto.EnrollCompleteResponse;
+import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseRequest;
+import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseResponse;
+
+@DisplayName("수강신청 E2E 테스트")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(scripts = "classpath:data.sql")
+public class EnrollCourseControllerTest {
+
+	@LocalServerPort
+	private int port;
+
+	@Autowired
+	private TestRestTemplate restTemplate;
+
+	@Test
+	@DisplayName("특강 신청 완료 목록 조회 E2E 테스트")
+	public void enrollCompleteEtoETest() {
+		String url = UriComponentsBuilder.fromUriString("http://localhost:" + port + "/enrollment/completeCourses/1")
+			.toUriString();
+
+		ResponseEntity<List<EnrollCompleteResponse>> response = restTemplate
+			.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+			});
+
+		// 상태 코드 확인
+		assertThat(response.getStatusCode().value()).isEqualTo(HttpStatus.OK.value());
+
+		// 응답 데이터 확인
+		List<EnrollCompleteResponse> enrollCompleteResponseList = response.getBody();
+		assertThat(enrollCompleteResponseList).isNotNull();
+		assertThat(enrollCompleteResponseList.size()).isEqualTo(2);
+
+		// 데이터 검증
+		EnrollCompleteResponse response1 = enrollCompleteResponseList.getFirst();
+		assertThat(response1.lectureId()).isEqualTo(1L);
+		assertThat(response1.lectureTitle()).isEqualTo("스프링 부트");
+		assertThat(response1.teacherName()).isEqualTo("김영한");
+		assertThat(response1.lectureDate()).isEqualTo("20241226");
+
+		EnrollCompleteResponse response2 = enrollCompleteResponseList.get(1);
+		assertThat(response2.lectureId()).isEqualTo(3L);
+		assertThat(response2.lectureTitle()).isEqualTo("디자인 패턴");
+		assertThat(response2.teacherName()).isEqualTo("허재");
+		assertThat(response2.lectureDate()).isEqualTo("20241228");
+	}
+
+}

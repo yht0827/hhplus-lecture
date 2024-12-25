@@ -21,15 +21,6 @@ public class Student {
 	@Column(name = "student_id")
 	private Long studentId;
 
-	@Column(name = "student_age")
-	private Long studentAge;
-
-	@Column
-	private String address;
-
-	@Column(name = "student_gender")
-	private String studentGender;
-
-	@Column(name = "student_phone")
-	private String studentPhone;
+	@Column(name = "student_name")
+	private String studentName;
 }
