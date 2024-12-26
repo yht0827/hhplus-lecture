@@ -22,7 +22,7 @@ import com.example.hhpluslecture.enrollCourse.dto.EnrollCompleteResponse;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseRequest;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseResponse;
 
-@DisplayName("수강신청 E2E 테스트")
+@DisplayName("특강 신청 E2E 테스트")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "classpath:data.sql")
 public class EnrollCourseEtoETest {

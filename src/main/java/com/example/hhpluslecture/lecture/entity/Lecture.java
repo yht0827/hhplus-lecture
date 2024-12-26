@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -54,6 +55,20 @@ public class Lecture {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
+
+	@Builder
+	public Lecture(Long lectureId, String lectureTitle, String lectureDate, String lectureTime, String lectureCode,
+		Integer grade, Integer enrollCount, List<EnrollCourse> enrollCourses, Teacher teacher) {
+		this.lectureId = lectureId;
+		this.lectureTitle = lectureTitle;
+		this.lectureDate = lectureDate;
+		this.lectureTime = lectureTime;
+		this.lectureCode = lectureCode;
+		this.grade = grade;
+		this.enrollCount = enrollCount;
+		this.enrollCourses = enrollCourses;
+		this.teacher = teacher;
+	}
 
 	public void updateEnrollCount() {
 		this.enrollCount = this.enrollCount + 1;

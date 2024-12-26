@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,10 @@ public class Student {
 
 	@Column(name = "student_name")
 	private String studentName;
+
+	@Builder
+	public Student(Long studentId, String studentName) {
+		this.studentId = studentId;
+		this.studentName = studentName;
+	}
 }
