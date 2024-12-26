@@ -1,10 +1,13 @@
 package com.example.hhpluslecture.enrollCourse.facade;
 
+import static com.example.hhpluslecture.common.ErrorMessage.*;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.hhpluslecture.common.CustomException;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableRequest;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableResponse;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCompleteResponse;
@@ -42,6 +45,13 @@ public class EnrollCourseFacade {
 	public EnrollCourseResponse saveEnrollCourse(final EnrollCourseRequest enrollCourseRequest) {
 		Lecture lecture = getLectureById(enrollCourseRequest.lectureId());
 
+		EnrollCourse enrollCourse = getEnrollCourseById(enrollCourseRequest.studentId(),
+			enrollCourseRequest.lectureId());
+
+		if (enrollCourse != null) {
+			throw new CustomException(DUPLICATE_ENROLL_LECTURE);
+		}
+
 		validationService.saveEnrollValidation(enrollCourseRequest, lecture.getEnrollCount());
 
 		EnrollCourse newEnrollCourse = enrollCourseService.saveEnrollCourse(enrollCourseRequest);
@@ -50,9 +60,13 @@ public class EnrollCourseFacade {
 
 		return EnrollCourseResponse.of(newEnrollCourse.getEnrollCourseId());
 	}
-	
+
 	public Lecture getLectureById(final Long lectureId) {
 		return enrollCourseService.getLectureById(lectureId);
+	}
+
+	public EnrollCourse getEnrollCourseById(final Long studentId, final Long lectureId) {
+		return enrollCourseService.getEnrollCourseById(studentId, lectureId);
 	}
 
 }
