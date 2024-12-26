@@ -38,4 +38,9 @@ public class EnrollCourseService {
 	public Lecture getLectureById(final Long lectureId) {
 		return lectureRepository.findByLectureId(lectureId);
 	}
+
+	public EnrollCourse getEnrollCourseById(final Long studentId, final Long lectureId) {
+		return enrollCourseRepository.findByStudentIdAndLectureId(studentId, lectureId);
+	}
+
 }

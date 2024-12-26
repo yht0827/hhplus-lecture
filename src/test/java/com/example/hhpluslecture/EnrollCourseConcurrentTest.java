@@ -60,4 +60,37 @@ public class EnrollCourseConcurrentTest {
 		assertThat(lecture.getEnrollCount()).isEqualTo(30);
 	}
 
+	@Test
+	@DisplayName("중복 신청 방지 테스트 동일 회원으로 - 5번 시도")
+	void enrollCourseOnlyOneConcurrentTest() throws InterruptedException {
+		int thread_count = 5;
+		ExecutorService executorService = Executors.newFixedThreadPool(32);
+		CountDownLatch latch = new CountDownLatch(thread_count);
+		Long lectureId = 2L;
+		Long studentId = 10L;
+
+		for (int i = 1; i <= thread_count; i++) {
+			executorService.submit(() -> {
+				try {
+					EnrollCourseRequest enrollCourseRequest = EnrollCourseRequest.builder()
+						.lectureId(lectureId)
+						.studentId(studentId)
+						.build();
+
+					enrollCourseFacade.saveEnrollCourse(enrollCourseRequest);
+				} finally {
+					latch.countDown();
+				}
+			});
+		}
+
+		latch.await();
+		executorService.shutdown();
+
+		Lecture lecture = lectureRepository.findById(lectureId)
+			.orElseThrow(() -> new CustomException(ErrorMessage.NO_COURSE));
+
+		assertThat(lecture.getEnrollCount()).isEqualTo(1);
+	}
+
 }
