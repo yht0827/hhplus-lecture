@@ -12,4 +12,5 @@
 - lecture와 enroll_course 1:N 관계
 - student와 enroll_course 1:N 관계
 - 수강 인원 제한 30명 (수강인원은 컬럼으로 관리 => 조회 성능 개선을 위해서)
-- 한 사람이 강의 신청 중복 못하도록 (student_id, lecture_id) unique 처리
+- 한 사람이 강의를 중복 신청 하지 못 하도록 (student_id, lecture_id) unique 처리
+
