@@ -2,9 +2,6 @@ package com.example.hhpluslecture.enrollCourse.entity;
 
 import java.time.LocalDateTime;
 
-import com.example.hhpluslecture.lecture.entity.Lecture;
-import com.example.hhpluslecture.student.entity.Student;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -16,7 +16,7 @@ import com.example.hhpluslecture.enrollCourse.dto.EnrollAvailableResponse;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCompleteResponse;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseRequest;
 import com.example.hhpluslecture.enrollCourse.dto.EnrollCourseResponse;
-import com.example.hhpluslecture.enrollCourse.service.EnrollCourseService;
+import com.example.hhpluslecture.enrollCourse.facade.EnrollCourseFacade;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,12 +25,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EnrollCourseController {
 
-	private final EnrollCourseService enrollCourseService;
+	private final EnrollCourseFacade enrollCourseFacade;
 
 	// 특강 신청 완료 목록 조회
 	@GetMapping("/completeCourses/{studentId}")
 	public ResponseEntity<List<EnrollCompleteResponse>> enrollComplete(@PathVariable Long studentId) {
-		List<EnrollCompleteResponse> responseList = enrollCourseService.getEnrollCompleteList(studentId);
+		List<EnrollCompleteResponse> responseList = enrollCourseFacade.getEnrollCompleteList(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
 
@@ -38,14 +38,14 @@ public class EnrollCourseController {
 	@GetMapping("/availableCourses/{studentId}")
 	public ResponseEntity<List<EnrollAvailableResponse>> enrollAvailable(
 		EnrollAvailableRequest enrollAvailableRequest) {
-		List<EnrollAvailableResponse> responseList = enrollCourseService.getEnrollAvailableList(enrollAvailableRequest);
+		List<EnrollAvailableResponse> responseList = enrollCourseFacade.getEnrollAvailableList(enrollAvailableRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(responseList);
 	}
 
 	// 특강 신청
 	@PostMapping
 	public ResponseEntity<EnrollCourseResponse> enrollCourse(@RequestBody EnrollCourseRequest enrollCourseRequest) {
-		EnrollCourseResponse enrollCourseResponse = enrollCourseService.saveEnrollCourse(enrollCourseRequest);
+		EnrollCourseResponse enrollCourseResponse = enrollCourseFacade.saveEnrollCourse(enrollCourseRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(enrollCourseResponse);
 	}
 }

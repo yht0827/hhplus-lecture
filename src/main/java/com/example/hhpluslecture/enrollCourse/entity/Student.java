@@ -1,4 +1,4 @@
-package com.example.hhpluslecture.teacher.entity;
+package com.example.hhpluslecture.enrollCourse.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,22 +12,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "student")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "teacher")
-public class Teacher {
+public class Student {
 
 	@Id
-	@Column(name = "teacher_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long teacherId;
+	@Column(name = "student_id")
+	private Long studentId;
 
-	@Column(name = "teacher_name")
-	private String teacherName;
+	@Column(name = "student_name")
+	private String studentName;
 
 	@Builder
-	public Teacher(Long teacherId, String teacherName) {
-		this.teacherId = teacherId;
-		this.teacherName = teacherName;
+	public Student(Long studentId, String studentName) {
+		this.studentId = studentId;
+		this.studentName = studentName;
 	}
 }

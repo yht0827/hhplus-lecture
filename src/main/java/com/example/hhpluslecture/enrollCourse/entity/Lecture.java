@@ -1,9 +1,6 @@
-package com.example.hhpluslecture.lecture.entity;
+package com.example.hhpluslecture.enrollCourse.entity;
 
 import java.util.List;
-
-import com.example.hhpluslecture.enrollCourse.entity.EnrollCourse;
-import com.example.hhpluslecture.teacher.entity.Teacher;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

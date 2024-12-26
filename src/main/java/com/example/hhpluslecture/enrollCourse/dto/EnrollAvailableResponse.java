@@ -1,6 +1,6 @@
 package com.example.hhpluslecture.enrollCourse.dto;
 
-import com.example.hhpluslecture.lecture.entity.Lecture;
+import com.example.hhpluslecture.enrollCourse.entity.Lecture;
 
 import lombok.Builder;
 

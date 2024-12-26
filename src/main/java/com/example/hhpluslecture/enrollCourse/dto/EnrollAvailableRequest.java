@@ -7,4 +7,5 @@ import lombok.Builder;
 
 @Builder
 public record EnrollAvailableRequest(@PathVariable Long studentId, @RequestParam String date) {
+
 }
